@@ -182,6 +182,43 @@ document.addEventListener('DOMContentLoaded', (e) => {
 		})
 		// portfolioWrapper.classList.remove('tab-content-hide')
 		
+	//Animation
+	
+	//Поместить в пременную все элементы, которые я хочу анимировать. Задать им дежурный класс
+	const animItems = document.querySelectorAll('.anim-items');
+
+	if(animItems.length > 0){
+		window.addEventListener('scroll', animScroll);
+
+		function animScroll() {
+			animItems.forEach(animItem => {
+				const animItemHeight = animItem.offsetHeight, //Высота элемента
+							animItemOffset = getOffset(animItem).top,
+							animStart = 4;
+							
+				let animItemPoint = window.innerHeight - animItemHeight / animStart;
+
+				if((scrollY > animItemOffset - animItemPoint) && scrollY < (animItemOffset + animItemHeight)){
+					animItem.classList.add('contacts__img_anim');
+				} else {
+					animItem.classList.remove('contacts__img_anim');
+				}
+			})
+		}
 		
+		function getOffset(el){
+			const rect = el.getBoundingClientRect(),
+						scrollLeft = document.documentElement.scrollLeft,
+						scrollTop = document.documentElement.scrollTop;
+	
+			return {top: rect.top + scrollTop, left: rect.left + scrollLeft}
+		}
+	}
+	
+	// console.log(window.innerHeight);
+	// console.log(document.documentElement.offsetHeight);
+	// console.log(scrollY);
+	// console.log(document.documentElement.scrollTop);
+
 
 });
